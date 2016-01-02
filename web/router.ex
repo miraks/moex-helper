@@ -1,0 +1,18 @@
+defmodule MoexHelper.Router do
+  use MoexHelper.Web, :router
+
+  pipeline :api do
+    plug :accepts, ["json"]
+    plug :fetch_session
+    plug :put_secure_browser_headers
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+  end
+
+  scope "/api/private", MoexHelper.Api.Private do
+    pipe_through :api
+
+    resources "/session", SessionController, only: [:create], singleton: true
+    resources "/current_user", CurrentUserController, only: [:show], singleton: true
+  end
+end
