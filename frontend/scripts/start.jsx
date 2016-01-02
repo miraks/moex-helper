@@ -9,6 +9,7 @@ import { reducer as formReducer } from 'redux-form'
 import reducers from './reducers'
 import App from './components/app'
 import Home from './components/home/page'
+import Accounts from './components/accounts/index/page'
 
 const store = createStore(
   combineReducers({
@@ -28,6 +29,7 @@ ReactDOM.render(
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Home}/>
+        <Route path="/accounts" component={Accounts}/>
       </Route>
     </Router>
   </Provider>,

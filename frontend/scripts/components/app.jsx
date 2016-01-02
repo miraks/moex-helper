@@ -1,8 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Container, Appbar } from 'muicss/react'
+import { Container } from 'muicss/react'
 import * as currentUserActions from '../actions/current-user'
 import Loader from './shared/loader'
+import Header from './shared/header'
 import LoginPage from './login/page'
 
 class App extends PureComponent {
@@ -28,11 +29,7 @@ class App extends PureComponent {
 
   render() {
     return <div className="layout">
-      <Appbar className="layout_header">
-        <div className="layout_header-title">
-          MOEX Helper
-        </div>
-      </Appbar>
+      <Header/>
       <Container className="layout_content">
         {::this.content()}
       </Container>
@@ -49,7 +46,7 @@ const mapStateToProps = ({ currentUser }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchCurrentUser() { dispatch(currentUserActions.fetch()) }
+    fetchCurrentUser() { return dispatch(currentUserActions.fetch()) }
   }
 }
 

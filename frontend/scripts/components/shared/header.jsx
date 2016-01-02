@@ -1,0 +1,13 @@
+import React from 'react'
+import { Link } from 'react-router'
+import { Appbar } from 'muicss/react'
+
+export default () =>
+  <Appbar className="layout_header">
+    <Link className="layout_header-title" to="/">
+      MOEX Helper
+    </Link>
+    <div className="layout_header-links">
+      <Link className="layout_header-link" to="/accounts">Accounts</Link>
+    </div>
+  </Appbar>

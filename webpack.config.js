@@ -94,6 +94,7 @@ if (!isProduction) {
       publicPath: '/',
       compress: true,
       port: 9000,
+      historyApiFallback: true,
       proxy: {
         '/api': 'http://localhost:4000'
       }

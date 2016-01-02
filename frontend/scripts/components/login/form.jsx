@@ -15,7 +15,7 @@ class LoginForm extends PureComponent {
       <legend>Login</legend>
       <Field name="email" type="email" label="Email" floatingLabel component={Input}/>
       <Field name="password" type="password" label="Password" floatingLabel component={Input}/>
-      <Button variant="raised">Login</Button>
+      <Button variant="raised" color="primary">Login</Button>
     </Form>
   }
 }

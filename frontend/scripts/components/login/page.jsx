@@ -19,7 +19,7 @@ class LoginPage extends PureComponent {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login({ email, password }) { dispatch(login({ email, password })) }
+    login({ email, password }) { return dispatch(login({ email, password })) }
   }
 }
 

@@ -14,8 +14,8 @@ defmodule MoexHelper.Api.Private.SessionController do
       |> render(CurrentUserView, "show.json", current_user: user)
     else
       conn
-      |> put_status(403)
-      |> render(ErrorView, "403.json")
+      |> put_status(400)
+      |> render(ErrorView, "400.json")
     end
   end
 end

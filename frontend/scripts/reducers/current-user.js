@@ -17,5 +17,9 @@ export default handleActions({
 
   CURRENT_USER_FETCH_FAIL(state) {
     return { ...state, isFetching: false, isFailed: true }
+  },
+
+  CURRENT_USER_LOGIN_SUCCESS(state, { payload: user }) {
+    return { ...state, item: user }
   }
 }, initialState)
