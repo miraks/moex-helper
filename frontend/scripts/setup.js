@@ -1,1 +1,1 @@
-import './setup/axios-camelcase-data'
+import './setup/axios-interceptors'

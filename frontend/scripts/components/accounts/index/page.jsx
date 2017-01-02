@@ -1,4 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import * as accountActions from '../../../actions/accounts'
 import List from './list'
@@ -8,7 +9,7 @@ class AccountsPage extends PureComponent {
   static propTypes = {
     fetchAccounts: PropTypes.func.isRequired,
     addAccount: PropTypes.func.isRequired,
-    accounts: PropTypes.object.isRequired
+    accounts: ImmutablePropTypes.map.isRequired
   }
 
   componentWillMount() {
@@ -26,9 +27,9 @@ class AccountsPage extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ accounts }) => {
+const mapStateToProps = (state) => {
   return {
-    accounts: accounts.items
+    accounts: state.getIn(['accounts', 'items'])
   }
 }
 

@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { omit } from 'lodash'
 import React, { PureComponent, PropTypes } from 'react'
 import { Input } from 'muicss/react'
 
@@ -9,7 +9,7 @@ export default class WrappedInput extends PureComponent {
 
   render() {
     const { input, ...other } = this.props
-    const custom = _.omit(other, 'meta')
+    const custom = omit(other, 'meta')
 
     return <Input {...input} {...custom}/>
   }

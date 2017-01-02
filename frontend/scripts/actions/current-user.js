@@ -15,9 +15,9 @@ export const fetch = () => (dispatch) => {
     .catch(() => { dispatch(fetchFail()) })
 }
 
-export const login = ({ email, password }) => (dispatch) => {
+export const login = (params) => (dispatch) => {
   dispatch(loginStart())
-  return currentUserApi.login({ email, password })
+  return currentUserApi.login(params)
     .then((currentUser) => { dispatch(loginSuccess(currentUser)) })
     .catch(() => { dispatch(loginFail) })
 }

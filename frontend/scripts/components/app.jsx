@@ -1,4 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import { Container } from 'muicss/react'
 import * as currentUserActions from '../actions/current-user'
@@ -10,7 +11,7 @@ class App extends PureComponent {
   static propTypes = {
     fetchCurrentUser: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    currentUser: PropTypes.object,
+    currentUser: ImmutablePropTypes.map,
     children: PropTypes.node.isRequired
   }
 
@@ -37,10 +38,10 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ currentUser }) => {
+const mapStateToProps = (state) => {
   return {
-    isFetching: currentUser.isFetching,
-    currentUser: currentUser.item
+    isFetching: state.getIn(['currentUser', 'isFetching']),
+    currentUser: state.getIn(['currentUser', 'item'])
   }
 }
 

@@ -8,8 +8,8 @@ class LoginPage extends PureComponent {
     login: PropTypes.func.isRequired
   }
 
-  handleSubmit({ email, password }) {
-    this.props.login({ email, password })
+  handleSubmit(params) {
+    this.props.login(params)
   }
 
   render() {
@@ -19,7 +19,7 @@ class LoginPage extends PureComponent {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login({ email, password }) { return dispatch(login({ email, password })) }
+    login(params) { return dispatch(login(params)) }
   }
 }
 

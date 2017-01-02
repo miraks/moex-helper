@@ -1,5 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form/immutable'
 import { Form, Button } from 'muicss/react'
 import Input from '../shared/input'
 

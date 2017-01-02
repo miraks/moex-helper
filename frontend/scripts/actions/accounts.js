@@ -20,7 +20,7 @@ export const fetch = () => (dispatch) => {
 }
 
 export const save = (cid, params) => (dispatch, getState) => {
-  const { id } = getState().accounts.items[cid]
+  const id = getState().getIn(['accounts', 'items', cid, 'id'])
 
   dispatch(saveStart(cid))
   return accountsApi.save(id, params)
@@ -29,7 +29,7 @@ export const save = (cid, params) => (dispatch, getState) => {
 }
 
 export const remove = (cid) => (dispatch, getState) => {
-  const { id } = getState().accounts.items[cid]
+  const id = getState().getIn(['accounts', 'items', cid, 'id'])
 
   if (!id) {
     dispatch(removeSuccess(cid))

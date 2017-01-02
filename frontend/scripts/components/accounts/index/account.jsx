@@ -1,7 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form/immutable'
 import { Button } from 'muicss/react'
 import * as accountActions from '../../../actions/accounts'
 import Input from '../../shared/input'
@@ -20,7 +20,7 @@ class Account extends PureComponent {
     const { account } = props
 
     this.state = {
-      edit: !account.id
+      edit: !account.get('id')
     }
   }
 
@@ -28,7 +28,7 @@ class Account extends PureComponent {
     const { account } = this.props
     const { edit } = this.state
 
-    if (!edit) return account.name
+    if (!edit) return account.get('name')
 
     return <Field name="name" type="text" hint="Name" component={Input}/>
   }
@@ -70,13 +70,13 @@ class Account extends PureComponent {
 }
 
 const mapStateToProps = (state, { account }) => {
-  return { form: `account-${account.cid}` }
+  return { form: `account-${account.get('cid')}` }
 }
 
 const mapDispatchToProps = (dispatch, { account }) => {
   return {
-    save(params) { return dispatch(accountActions.save(account.cid, params)) },
-    remove() { return dispatch(accountActions.remove(account.cid)) }
+    save(params) { return dispatch(accountActions.save(account.get('cid'), params)) },
+    remove() { return dispatch(accountActions.remove(account.get('cid'))) }
   }
 }
 
