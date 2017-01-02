@@ -22,6 +22,7 @@ const config = {
     rules: [
       {
         test: /\.jsx?$/,
+        exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
           presets: [
@@ -88,7 +89,7 @@ const config = {
 
 if (!isProduction) {
   Object.assign(config, {
-    devtool: 'cheap-eval-source-map',
+    devtool: 'eval-source-map',
     devServer: {
       contentBase: path.resolve(__dirname, 'priv/static'),
       publicPath: '/',
