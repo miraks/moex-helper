@@ -1,4 +1,3 @@
-import { Map } from 'immutable'
 import axios from 'axios'
 
 export const fetch = () =>
@@ -9,7 +8,7 @@ export const save = (id, params) => {
   const prefix = '/api/private/accounts'
   const [url, method] = id ? [`${prefix}/${id}`, 'put'] : [prefix, 'post']
 
-  return axios[method](url, Map({ account: params }))
+  return axios[method](url, { account: params })
     .then(({ data }) => data.get('account'))
 }
 

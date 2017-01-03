@@ -12,6 +12,7 @@ import reducers from './reducers'
 import App from './components/app'
 import Home from './components/home/page'
 import Accounts from './components/accounts/index/page'
+import NewSecurity from './components/ownerships/new/page'
 
 const store = createStore(
   combineReducers({
@@ -34,6 +35,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Home}/>
         <Route path="/accounts" component={Accounts}/>
+        <Route path="/ownerships/new" component={NewSecurity}/>
       </Route>
     </Router>
   </Provider>,

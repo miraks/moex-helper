@@ -20,7 +20,7 @@ class AccountsPage extends PureComponent {
   render() {
     const { accounts, addAccount } = this.props
 
-    return <div className="accounts">
+    return <div>
       <Add onClick={addAccount}/>
       <List accounts={accounts}/>
     </div>

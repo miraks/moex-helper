@@ -1,10 +1,10 @@
-import { fromJS } from 'immutable'
+import { fromJS, Iterable } from 'immutable'
 import { camelCase, snakeCase, isArray, isPlainObject } from 'lodash'
 import axios from 'axios'
 import deepMapKeys from '../helpers/deep-map-keys'
 
 axios.interceptors.request.use((request) => {
-  if (request.data) request.data = deepMapKeys(request.data, snakeCase).toJS()
+  if (Iterable.isIterable(request.data)) request.data = deepMapKeys(request.data, snakeCase).toJS()
   return request
 })
 

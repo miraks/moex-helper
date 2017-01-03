@@ -36,34 +36,34 @@ class Account extends PureComponent {
   edit() {
     const { edit } = this.state
 
-    if (edit) return null
+    if (edit) return
 
     const startEdit = () => { this.setState({ edit: true }) }
-    return <Button onClick={startEdit}>Edit</Button>
+    return <Button color="primary" onClick={startEdit}>Edit</Button>
   }
 
   save() {
     const { save, handleSubmit } = this.props
     const { edit } = this.state
 
-    if (!edit) return null
+    if (!edit) return
 
     const onSubmit = (params) => {
       save(params).then(() => { this.setState({ edit: false }) })
     }
 
-    return <Button onClick={handleSubmit(onSubmit)}>Save</Button>
+    return <Button color="primary" onClick={handleSubmit(onSubmit)}>Save</Button>
   }
 
   render() {
     const { remove } = this.props
 
-    return <tr className="accounts_account">
+    return <tr>
       <td>{::this.name()}</td>
       <td>
         {::this.edit()}
         {::this.save()}
-        <Button onClick={remove}>Remove</Button>
+        <Button color="danger" onClick={remove}>Remove</Button>
       </td>
     </tr>
   }

@@ -20,7 +20,7 @@ defmodule MoexHelper.Api.Private.AccountController do
     case Repo.insert(changeset) do
       {:ok, account} ->
         render(conn, "show.json", account: account)
-      {:error, changeset} ->
+      {:error, _changeset} ->
         conn
         |> put_status(400)
         |> render(ErrorView, "400.json")
@@ -36,7 +36,7 @@ defmodule MoexHelper.Api.Private.AccountController do
     case Repo.update(changeset) do
       {:ok, account} ->
         render(conn, "show.json", account: account)
-      {:error, changeset} ->
+      {:error, _changeset} ->
         conn
         |> put_status(400)
         |> render(ErrorView, "400.json")

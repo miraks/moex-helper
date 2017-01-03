@@ -15,5 +15,9 @@ defmodule MoexHelper.Router do
     resources "/session", SessionController, only: [:create], singleton: true
     resources "/current_user", CurrentUserController, only: [:show], singleton: true
     resources "/accounts", AccountController, only: [:index, :create, :update, :delete]
+    scope "/securities", Securities do
+      resources "/search", SearchController, only: [:show], singleton: true
+    end
+    resources "/ownerships", OwnershipController, only: [:create]
   end
 end

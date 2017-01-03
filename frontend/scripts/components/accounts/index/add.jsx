@@ -9,7 +9,7 @@ export default class Add extends PureComponent {
   render() {
     const { onClick } = this.props
 
-    return <Button className="accounts_add" variant="raised" color="primary" onClick={onClick}>
+    return <Button variant="raised" color="primary" onClick={onClick}>
       Add
     </Button>
   }
