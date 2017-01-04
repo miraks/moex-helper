@@ -1,8 +1,8 @@
 defmodule MoexHelper.Api.Private.OwnershipController do
   use MoexHelper.Web, :controller
 
+  alias MoexHelper.{Ownership, ErrorView}
   alias MoexHelper.OwnershipAction.Create
-  alias MoexHelper.ErrorView
 
   def index(conn, _params) do
     ownerships = conn |> current_resource |> assoc(:ownerships) |> preload([:account, :security]) |> Repo.all
@@ -20,5 +20,32 @@ defmodule MoexHelper.Api.Private.OwnershipController do
         |> put_status(400)
         |> render(ErrorView, "400.json")
     end
+  end
+
+  def update(conn, %{"id" => id, "ownership" => ownership_params}) do
+    changeset = conn
+    |> ownerships
+    |> Repo.get!(id)
+    |> Ownership.changeset(ownership_params)
+
+    case Repo.update(changeset) do
+      {:ok, ownership} ->
+        render(conn, "show_with_assocs.json", ownership: Repo.preload(ownership, [:account, :security]))
+      {:error, _changeset} ->
+        conn
+        |> put_status(400)
+        |> render(ErrorView, "400.json")
+    end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    conn |> ownerships |> Repo.get!(id) |> Repo.delete!
+    send_resp(conn, 200, "")
+  end
+
+  defp ownerships(conn) do
+    conn
+    |> current_resource
+    |> assoc(:ownerships)
   end
 end

@@ -28,7 +28,7 @@ class NewSecurityForm extends PureComponent {
       <Field name="price" type="text" label="Price" floatingLabel component={Input}/>
       <Field name="comment" type="text" label="Comment" floatingLabel component={Input}/>
       <Field name="account_id" component={Select}>
-        <Option key="empty" value="" label=""/>
+        <Option value="" label=""/>
         {accounts.valueSeq().map((option) =>
           <Option key={option.get('id')} value={option.get('id')} label={option.get('name')}/>
         ).toJS()}

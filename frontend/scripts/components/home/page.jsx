@@ -17,16 +17,15 @@ class HomePage extends PureComponent {
 
     this.state = {
       columns: fromJS([
-        { name: 'Account', path: 'account.name' },
-        { name: 'ISIN', path: 'security.isin' },
-        { name: t('en.security.data.secname'), path: 'security.data.secname' },
-        { name: 'Amount', path: 'amount' },
-        { name: 'Original price', path: 'price' },
-        { name: t('en.security.data.prevprice'), path: 'security.data.prevprice' },
-        { name: t('en.security.data.marketprice'), path: 'security.data.marketprice' },
-        { name: t('en.security.data.couponvalue'), path: 'security.data.couponvalue' },
-        { name: t('en.security.data.nextcoupon'), path: 'security.data.nextcoupon' },
-        { name: t('en.security.data.matdate'), path: 'security.data.matdate' }
+        { name: 'Account', path: 'account.name', editable: false },
+        { name: 'ISIN', path: 'security.isin', editable: false },
+        { name: t('en.security.data.secname'), path: 'security.data.secname', editable: false },
+        { name: 'Amount', path: 'amount', editable: true },
+        { name: 'Original price', path: 'price', editable: true },
+        { name: t('en.security.data.prevprice'), path: 'security.data.prevprice', editable: false },
+        { name: t('en.security.data.couponvalue'), path: 'security.data.couponvalue', editable: false },
+        { name: t('en.security.data.nextcoupon'), path: 'security.data.nextcoupon', editable: false },
+        { name: t('en.security.data.matdate'), path: 'security.data.matdate', editable: false }
       ])
     }
   }
@@ -46,6 +45,7 @@ class HomePage extends PureComponent {
           {columns.map((column) =>
             <th key={column.get('path')}>{column.get('name')}</th>
           ).toJS()}
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>

@@ -5,7 +5,6 @@ defmodule MoexHelper.I18n do
         data: %{
           secname: "Name",
           prevprice: "Last deal price",
-          marketprice: "Market price",
           couponvalue: "Coupon value",
           nextcoupon: "Next coupon",
           matdate: "Redemption"

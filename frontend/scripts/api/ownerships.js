@@ -7,3 +7,10 @@ export const fetch = () =>
 export const create = (params) =>
   axios.post('/api/private/ownerships', { ownership: params })
     .then(({ data }) => data.get('ownership'))
+
+export const update = (id, params) =>
+  axios.put(`/api/private/ownerships/${id}`, { ownership: params })
+    .then(({ data }) => data.get('ownership'))
+
+export const remove = (id) =>
+  axios.delete(`/api/private/ownerships/${id}`)

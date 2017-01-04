@@ -4,7 +4,7 @@ defmodule MoexHelper.ISS.SecuritySync do
   alias MoexHelper.{Repo, Security}
   alias MoexHelper.ISS.Client
 
-  @columns ~W(SECNAME PREVPRICE MARKETPRICE COUPONVALUE NEXTCOUPON MATDATE)
+  @columns ~W(SECNAME PREVPRICE COUPONVALUE NEXTCOUPON MATDATE)
 
   def call do
     securities = Security |> preload(board: [market: :engine]) |> Repo.stream
