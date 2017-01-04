@@ -10,8 +10,7 @@ defmodule MoexHelper.Api.Private.CurrentUserView do
   def render("current_user.json", %{current_user: current_user}) do
     %{
       id: current_user.id,
-      email: current_user.email,
-      accounts: render_many(current_user.accounts, AccountView, "account.json")
+      email: current_user.email
     }
   end
 end
