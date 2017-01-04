@@ -1,5 +1,8 @@
 import { fromJS, Iterable } from 'immutable'
-import { camelCase, snakeCase, isArray, isPlainObject } from 'lodash'
+import camelCase from 'lodash/camelCase'
+import snakeCase from 'lodash/snakeCase'
+import isArray from 'lodash/isArray'
+import isPlainObject from 'lodash/isPlainObject'
 import axios from 'axios'
 import deepMapKeys from '../helpers/deep-map-keys'
 

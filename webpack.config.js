@@ -10,6 +10,15 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const env = process.env.NODE_ENV
 const isProduction = env === 'production'
 
+let envPlugins = []
+
+if (isProduction) {
+  envPlugins = [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin()
+  ]
+}
+
 const config = {
   entry: {
     app: './frontend/index.js'
@@ -31,7 +40,7 @@ const config = {
               'env',
               {
                 targets: {
-                  browsers: ['last 2 firefox versions', 'last 2 chrome versions']
+                  browsers: isProduction ? ['last 2 versions'] : ['last 2 firefox versions', 'last 2 chrome versions']
                 },
                 useBuiltIns: true
               }
@@ -54,7 +63,7 @@ const config = {
         test: /\.s(a|c)ss$/,
         loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style-loader',
-          loader: ['css-loader', 'sass-loader']
+          loader: [`css-loader${isProduction ? '?minimize' : ''}`, 'sass-loader']
         })
       }
     ]
@@ -62,7 +71,7 @@ const config = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  plugins: [
+  plugins: envPlugins.concat([
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
@@ -85,7 +94,7 @@ const config = {
         firefox: false
       }
     })
-  ],
+  ]),
   performance: {
     hints: false
   }

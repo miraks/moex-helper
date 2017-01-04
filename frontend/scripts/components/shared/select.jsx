@@ -1,4 +1,4 @@
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import React, { PureComponent, PropTypes } from 'react'
 import { Select } from 'muicss/react'
 

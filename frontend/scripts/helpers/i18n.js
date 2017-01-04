@@ -1,4 +1,4 @@
-import { isString } from 'lodash'
+import isString from 'lodash/isString'
 import { Map } from 'immutable'
 
 let translations = Map()
