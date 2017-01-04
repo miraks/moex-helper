@@ -7,7 +7,7 @@ const fetchFail = createAction('OWNERSHIPS_FETCH_FAIL')
 
 export const fetch = () => (dispatch) => {
   dispatch(fetchStart())
-  ownershipsApi.fetch()
+  return ownershipsApi.fetch()
     .then((ownerships) => { dispatch(fetchSuccess(ownerships)) })
     .catch(() => { dispatch(fetchFail()) })
 }

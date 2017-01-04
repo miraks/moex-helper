@@ -14,7 +14,7 @@ export const add = createAction('ACCOUNTS_ADD')
 
 export const fetch = () => (dispatch) => {
   dispatch(fetchStart())
-  accountsApi.fetch()
+  return accountsApi.fetch()
     .then((accounts) => { dispatch(fetchSuccess(accounts)) })
     .catch(() => { dispatch(fetchFail()) })
 }
