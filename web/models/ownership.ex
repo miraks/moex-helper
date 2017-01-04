@@ -13,7 +13,7 @@ defmodule MoexHelper.Ownership do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:amount, :price, :account_id, :security_id])
+    |> cast(params, [:amount, :price, :comment, :account_id, :security_id])
     |> validate_required([:amount, :price, :account_id, :security_id])
     |> foreign_key_constraint(:account_id)
     |> foreign_key_constraint(:security_id)

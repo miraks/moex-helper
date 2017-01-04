@@ -4,6 +4,7 @@ defmodule MoexHelper.Account do
   schema "accounts" do
     field :name, :string
     belongs_to :user, MoexHelper.User
+    has_many :ownerships, MoexHelper.Ownership
 
     timestamps
   end

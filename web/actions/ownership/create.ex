@@ -13,10 +13,10 @@ defmodule MoexHelper.OwnershipAction.Create do
 
     multi = Multi.new
     |> Multi.run(:engine, fn _multi -> get_or_create_engine(board["engine"]) end)
-    |> Multi.run(:market, &(get_or_create_market(&1, board["market"])))
-    |> Multi.run(:board, &(get_or_create_board(&1, board["boardid"])))
-    |> Multi.run(:security, &(get_or_create_security(&1, isin)))
-    |> Multi.run(:ownership, &(create_ownership(&1, user, params)))
+    |> Multi.run(:market, &get_or_create_market(&1, board["market"]))
+    |> Multi.run(:board, &get_or_create_board(&1, board["boardid"]))
+    |> Multi.run(:security, &get_or_create_security(&1, isin))
+    |> Multi.run(:ownership, &create_ownership(&1, user, params))
 
     case Repo.transaction(multi) do
       {:ok, %{ownership: ownership}} -> {:ok, ownership}
