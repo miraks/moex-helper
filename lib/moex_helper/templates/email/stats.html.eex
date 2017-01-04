@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <%= for field <- fields do %>
+      <th><%= field.name %></th>
+    <% end %>
+  </tr>
+  <%= for ownership <- ownerships do %>
+    <tr style="color: <%= row_color(ownership) %>">
+      <%= for field <- fields do %>
+        <td><%= format(ownership, field) %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

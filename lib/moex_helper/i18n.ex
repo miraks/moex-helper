@@ -14,7 +14,7 @@ defmodule MoexHelper.I18n do
   }
 
   def t(path) when is_binary(path) do
-    path |> String.split(".") |> t
+    path |> String.split(".") |> Enum.map(&String.to_atom/1) |> t
   end
 
   def t(path) do

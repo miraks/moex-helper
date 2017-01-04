@@ -1,4 +1,4 @@
-defmodule MoexHelper.ISS.SecuritySync do
+defmodule MoexHelper.Tasks.SyncSecurities do
   import Ecto.Query
 
   alias MoexHelper.{Repo, Security}

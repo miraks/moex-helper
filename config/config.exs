@@ -25,7 +25,11 @@ config :guardian, Guardian,
 config :quantum, cron: [
   security_sync: [
     schedule: "@hourly",
-    task: {MoexHelper.ISS.SecuritySync, :call}
+    task: {MoexHelper.Tasks.SyncSecurities, :call}
+  ],
+  email_stats: [
+    schedule: "10 10 * * *",
+    task: {MoexHelper.Tasks.EmailStats, :call}
   ]
 ]
 
