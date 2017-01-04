@@ -11,13 +11,19 @@ const loginFail = createAction('CURRENT_USER_LOGIN_FAIL')
 export const fetch = () => (dispatch) => {
   dispatch(fetchStart())
   return currentUserApi.fetch()
-    .then((currentUser) => { dispatch(fetchSuccess(currentUser)) })
+    .then((currentUser) => {
+      dispatch(fetchSuccess(currentUser))
+      return currentUser
+    })
     .catch(() => { dispatch(fetchFail()) })
 }
 
 export const login = (params) => (dispatch) => {
   dispatch(loginStart())
   return currentUserApi.login(params)
-    .then((currentUser) => { dispatch(loginSuccess(currentUser)) })
+    .then((currentUser) => {
+      dispatch(loginSuccess(currentUser))
+      return currentUser
+    })
     .catch(() => { dispatch(loginFail) })
 }

@@ -1,6 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { List } from 'immutable'
 import { connect } from 'react-redux'
 import { Container } from 'muicss/react'
 import * as i18n from '../helpers/i18n'
@@ -45,7 +44,7 @@ class App extends PureComponent {
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: List(['translations', 'currentUser']).some((store) => state.getIn([store, 'isFetching'])),
+    isFetching: ['translations', 'currentUser'].some((store) => state.getIn([store, 'isFetching'])),
     currentUser: state.getIn(['currentUser', 'item'])
   }
 }

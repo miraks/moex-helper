@@ -15,7 +15,10 @@ export const add = createAction('ACCOUNTS_ADD')
 export const fetch = () => (dispatch) => {
   dispatch(fetchStart())
   return accountsApi.fetch()
-    .then((accounts) => { dispatch(fetchSuccess(accounts)) })
+    .then((accounts) => {
+      dispatch(fetchSuccess(accounts))
+      return accounts
+    })
     .catch(() => { dispatch(fetchFail()) })
 }
 
@@ -24,7 +27,10 @@ export const save = (cid, params) => (dispatch, getState) => {
 
   dispatch(saveStart(cid))
   return accountsApi.save(id, params)
-    .then((account) => { dispatch(saveSuccess({ cid, account })) })
+    .then((account) => {
+      dispatch(saveSuccess({ cid, account }))
+      return account
+    })
     .catch(() => { dispatch(saveFail(cid)) })
 }
 

@@ -14,7 +14,7 @@
     "comma-dangle": ["error", "never"],
     "arrow-body-style": ["error", "as-needed", { "requireReturnForObjectLiteral": true }],
     "arrow-parens": ["error", "always"],
-    "no-param-reassign": ["error", { "props": false }],
+    "no-param-reassign": "off",
     "consistent-return": "off",
     "import/prefer-default-export": "off",
     "react/jsx-space-before-closing": ["error", "never"],

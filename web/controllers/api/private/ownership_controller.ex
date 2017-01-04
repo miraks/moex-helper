@@ -5,7 +5,7 @@ defmodule MoexHelper.Api.Private.OwnershipController do
   alias MoexHelper.ErrorView
 
   def index(conn, _params) do
-    ownerships = conn |> current_resource |> assoc(:ownerships) |> Repo.all
+    ownerships = conn |> current_resource |> assoc(:ownerships) |> preload([:account, :security]) |> Repo.all
     render(conn, "index.json", ownerships: ownerships)
   end
 

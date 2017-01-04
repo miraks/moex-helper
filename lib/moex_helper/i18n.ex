@@ -2,17 +2,21 @@ defmodule MoexHelper.I18n do
   @translations %{
     en: %{
       security: %{
-        columns: %{
-          SECNAME: "Name",
-          PREVPRICE: "Last deal price",
-          MARKETPRICE: "Market price",
-          COUPONVALUE: "Coupon value",
-          NEXTCOUPON: "Next coupon",
-          MATDATE: "Redemption"
+        data: %{
+          secname: "Name",
+          prevprice: "Last deal price",
+          marketprice: "Market price",
+          couponvalue: "Coupon value",
+          nextcoupon: "Next coupon",
+          matdate: "Redemption"
         }
       }
     }
   }
+
+  def t(path) when is_binary(path) do
+    path |> String.split(".") |> t
+  end
 
   def t(path) do
     get_in(@translations, path)
