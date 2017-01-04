@@ -8,9 +8,16 @@ defmodule MoexHelper.ISS.Client do
     get_and_process!(cache_key, "/securities", "securities", columns, q: query, is_trading: 1)
   end
 
-  def security(isin, columns) do
-    cache_key = {:security, isin, columns}
+  def security_boards(isin, columns) do
+    cache_key = {:security_boards, isin, columns}
     get_and_process!(cache_key, "/securities/#{isin}", "boards", columns)
+  end
+
+  def security_data(security, columns) do
+    %{board: %{market: %{engine: engine} = market} = board} = security
+    cache_key = {:security_data, security.isin, columns}
+    url = "/engines/#{engine.name}/markets/#{market.name}/boards/#{board.name}/securities/#{security.isin}"
+    cache_key |> get_and_process!(url, "securities", columns) |> hd
   end
 
   defp process_url(url) do

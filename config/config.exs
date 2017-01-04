@@ -22,4 +22,11 @@ config :guardian, Guardian,
   secret_key: File.read!("config/#{Mix.env}.secret.key"),
   serializer: MoexHelper.GuardianSerializer
 
+config :quantum, cron: [
+  security_sync: [
+    schedule: "@hourly",
+    task: {MoexHelper.ISS.SecuritySync, :call}
+  ]
+]
+
 import_config "#{Mix.env}.exs"

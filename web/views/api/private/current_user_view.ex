@@ -1,8 +1,6 @@
 defmodule MoexHelper.Api.Private.CurrentUserView do
   use MoexHelper.Web, :view
 
-  alias MoexHelper.Api.Private.AccountView
-
   def render("show.json", %{current_user: current_user}) do
     %{current_user: render_one(current_user, __MODULE__, "current_user.json")}
   end

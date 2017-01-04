@@ -19,7 +19,7 @@ defmodule MoexHelper.Mixfile do
     [
       mod: {MoexHelper, []},
       applications: [
-        :phoenix, :cowboy, :logger, :phoenix_ecto, :postgrex, :httpoison, :con_cache
+        :phoenix, :cowboy, :logger, :phoenix_ecto, :postgrex, :httpoison, :con_cache, :quantum
       ]
     ]
   end
@@ -38,6 +38,7 @@ defmodule MoexHelper.Mixfile do
       {:poison, "~> 2.0"},
       {:httpoison, "~> 0.10.0"},
       {:con_cache, "~> 0.11.1"},
+      {:quantum, "~> 1.8"},
       {:credo, "~> 0.5.3", only: [:dev, :test]}
     ]
   end

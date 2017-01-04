@@ -9,7 +9,7 @@ defmodule MoexHelper.OwnershipAction.Create do
 
   def call(user, params) do
     {isin, params} = Map.pop(params, "isin")
-    board = isin |> Client.security(@columns) |> get_primary
+    board = isin |> Client.security_boards(@columns) |> get_primary
 
     multi = Multi.new
     |> Multi.run(:engine, fn _multi -> get_or_create_engine(board["engine"]) end)
