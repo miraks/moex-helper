@@ -32,7 +32,8 @@ class Ownership extends PureComponent {
     switch (column.get('path')) {
       case 'security.data.prevprice': {
         const diff = value - ownership.get('price')
-        const diffStr = diff > 0 ? `+${diff}` : diff.toString()
+        const roundDiff = diff.toFixed(2)
+        const diffStr = diff > 0 ? `+${roundDiff}` : roundDiff
         return `${value} (${diffStr})`
       }
 
