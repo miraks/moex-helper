@@ -19,8 +19,8 @@ defmodule MoexHelper.Mixfile do
     [
       mod: {MoexHelper, []},
       applications: [
-        :phoenix, :cowboy, :logger, :phoenix_ecto, :postgrex, :httpoison, :con_cache, :quantum, :swoosh, :gen_smtp,
-        :timex
+        :phoenix, :cowboy, :logger, :phoenix_ecto, :postgrex, :comeonin, :httpoison, :con_cache, :quantum, :swoosh,
+        :gen_smtp, :timex
       ]
     ]
   end
@@ -42,6 +42,7 @@ defmodule MoexHelper.Mixfile do
       {:quantum, "~> 1.8"},
       {:swoosh, "~> 0.4.0"},
       {:timex, "~> 3.1"},
+      {:distillery, "~> 1.0"},
       {:credo, "~> 0.5.3", only: [:dev, :test]}
     ]
   end
