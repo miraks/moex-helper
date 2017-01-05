@@ -19,7 +19,7 @@ defmodule MoexHelper.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_moex_helper_key",
-    signing_salt: "UValN4iu"
+    signing_salt: Application.get_env(:moex_helper, __MODULE__)[:signing_salt]
 
   plug MoexHelper.Router
 end
