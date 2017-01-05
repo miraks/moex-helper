@@ -28,7 +28,7 @@ config :quantum, cron: [
     task: {MoexHelper.Tasks.SyncSecurities, :call}
   ],
   email_stats: [
-    schedule: "10 10 * * *",
+    schedule: "10 7 * * *",
     task: {MoexHelper.Tasks.EmailStats, :call}
   ]
 ]
