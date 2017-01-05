@@ -9,7 +9,7 @@ defmodule MoexHelper.OwnershipAction.Create do
 
   def call(user, params) do
     {isin, params} = Map.pop(params, "isin")
-    board = isin |> Client.security_boards(@columns) |> get_primary
+    board = find_primary_board(isin)
 
     multi = Multi.new
     |> Multi.run(:engine, fn _multi -> get_or_create_engine(board["engine"]) end)
@@ -24,8 +24,13 @@ defmodule MoexHelper.OwnershipAction.Create do
     end
   end
 
-  defp get_primary(boards) do
-    Enum.find(boards, &(&1["is_primary"] == 1))
+  defp find_primary_board(isin) do
+    isin
+    |> Client.search(~W(secid))
+    |> hd
+    |> Map.get("secid")
+    |> Client.security_boards(@columns)
+    |> Enum.find(&(&1["is_primary"] == 1))
   end
 
   defp get_or_create_engine(name) do
