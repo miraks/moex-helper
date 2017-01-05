@@ -19,7 +19,8 @@ defmodule MoexHelper.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_moex_helper_key",
-    signing_salt: Application.get_env(:moex_helper, __MODULE__)[:signing_salt]
+    signing_salt: Application.get_env(:moex_helper, __MODULE__)[:signing_salt],
+    max_age: 1 * 365 * 24 * 60 * 60 # 1 year
 
   plug MoexHelper.Router
 end
