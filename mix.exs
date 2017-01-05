@@ -19,8 +19,8 @@ defmodule MoexHelper.Mixfile do
     [
       mod: {MoexHelper, []},
       applications: [
-        :phoenix, :cowboy, :logger, :phoenix_ecto, :postgrex, :comeonin, :httpoison, :con_cache, :quantum, :swoosh,
-        :gen_smtp, :timex
+        :phoenix, :cowboy, :logger, :phoenix_ecto, :postgrex, :comeonin, :guardian, :httpoison, :con_cache, :quantum,
+        :swoosh, :gen_smtp, :timex
       ]
     ]
   end

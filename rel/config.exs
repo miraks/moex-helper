@@ -5,6 +5,7 @@ use Mix.Releases.Config,
 environment :prod do
   set include_erts: true
   set include_src: false
+  set cookie: "config/prod.secret.cookie" |> File.read! |> String.trim_trailing |> String.to_atom
 end
 
 release :moex_helper do

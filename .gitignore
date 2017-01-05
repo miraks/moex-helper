@@ -8,3 +8,4 @@ erl_crash.dump
 npm-debug.log
 /priv/static/*
 !/priv/static/robots.txt
+deploy.rb
