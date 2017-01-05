@@ -4,7 +4,7 @@ defmodule MoexHelper.Api.Private.SecurityView do
   def render("security.json", %{security: security}) do
     %{
       id: security.id,
-      isin: security.isin,
+      code: security.code,
       data: security.data
     }
   end

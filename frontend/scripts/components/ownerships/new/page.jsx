@@ -19,7 +19,7 @@ export default class NewSecurityPage extends PureComponent {
   createOwnership(params) {
     const { security } = this.state
 
-    ownershipsApi.create(params.merge({ isin: security.get('isin') }))
+    ownershipsApi.create(params.merge({ code: security.get('code') }))
       .then(() => this.setState({ security: null }))
   }
 

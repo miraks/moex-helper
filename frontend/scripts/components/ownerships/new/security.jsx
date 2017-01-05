@@ -12,7 +12,7 @@ export default class Security extends PureComponent {
     const { security, onSelect } = this.props
 
     return <tr>
-      <td>{security.get('isin')}</td>
+      <td>{security.get('code')}</td>
       <td>{security.get('shortname')}</td>
       <td>{security.get('name')}</td>
       <td>{security.get('emitentTitle')}</td>

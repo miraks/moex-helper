@@ -8,14 +8,14 @@ defmodule MoexHelper.OwnershipAction.Create do
   alias MoexHelper.ISS.Client
 
   def call(user, params) do
-    {isin, params} = Map.pop(params, "isin")
-    board = find_primary_board(isin)
+    {code, params} = Map.pop(params, "code")
+    board = code |> Client.security_boards(@columns) |> get_primary
 
     multi = Multi.new
     |> Multi.run(:engine, fn _multi -> get_or_create_engine(board["engine"]) end)
     |> Multi.run(:market, &get_or_create_market(&1, board["market"]))
     |> Multi.run(:board, &get_or_create_board(&1, board["boardid"]))
-    |> Multi.run(:security, &get_or_create_security(&1, isin))
+    |> Multi.run(:security, &get_or_create_security(&1, code))
     |> Multi.run(:ownership, &create_ownership(&1, user, params))
 
     case Repo.transaction(multi) do
@@ -24,13 +24,8 @@ defmodule MoexHelper.OwnershipAction.Create do
     end
   end
 
-  defp find_primary_board(isin) do
-    isin
-    |> Client.search(~W(secid))
-    |> hd
-    |> Map.get("secid")
-    |> Client.security_boards(@columns)
-    |> Enum.find(&(&1["is_primary"] == 1))
+  defp get_primary(boards) do
+    Enum.find(boards, &(&1["is_primary"] == 1))
   end
 
   defp get_or_create_engine(name) do
@@ -54,9 +49,9 @@ defmodule MoexHelper.OwnershipAction.Create do
     end
   end
 
-  defp get_or_create_security(%{board: board}, isin) do
-    case Repo.get_by(Security, board_id: board.id, isin: isin) do
-      nil -> board |> build_assoc(:securities) |> Security.changeset(%{isin: isin}) |> Repo.insert
+  defp get_or_create_security(%{board: board}, code) do
+    case Repo.get_by(Security, board_id: board.id, code: code) do
+      nil -> board |> build_assoc(:securities) |> Security.changeset(%{code: code}) |> Repo.insert
       security -> {:ok, security}
     end
   end

@@ -1,9 +1,13 @@
 defmodule MoexHelper.SecurityAction.Search do
   alias MoexHelper.ISS.Client
 
-  @columns ~W(isin shortname name emitent_title)
+  @columns ~W(secid shortname name emitent_title)
 
   def call(query) do
     Client.search(query, @columns)
+    |> Enum.map(fn security ->
+      {code, new_security} = Map.pop(security, "secid")
+      Map.put(security, "code", code)
+    end)
   end
 end

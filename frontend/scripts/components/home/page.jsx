@@ -18,7 +18,7 @@ class HomePage extends PureComponent {
     this.state = {
       columns: fromJS([
         { name: 'Account', path: 'account.name', editable: false },
-        { name: 'ISIN', path: 'security.isin', editable: false },
+        { name: 'Code', path: 'security.code', editable: false },
         { name: t('en.security.data.secname'), path: 'security.data.secname', editable: false },
         { name: 'Amount', path: 'amount', editable: true },
         { name: 'Original price', path: 'price', editable: true },

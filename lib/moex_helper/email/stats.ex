@@ -12,7 +12,7 @@ defmodule MoexHelper.Email.Stats do
 
   @fields [
     %{name: "Account", path: [:account, :name]},
-    %{name: "ISIN", path: [:security, :isin]},
+    %{name: "Code", path: [:security, :code]},
     %{name: t("en.security.data.secname"), path: [:security, :data, "SECNAME"]},
     %{name: "Amount", path: [:amount]},
     %{name: "Original price", path: [:price]},

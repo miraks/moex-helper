@@ -39,7 +39,7 @@ class Search extends PureComponent {
       <table>
         <thead>
           <tr>
-            <th>ISIN</th>
+            <th>Code</th>
             <th>Short name</th>
             <th>Name</th>
             <th>Emitent</th>
@@ -48,7 +48,7 @@ class Search extends PureComponent {
         </thead>
         <tbody>
           {securities.map((security) =>
-            <Security key={security.get('isin')} security={security} onSelect={onSelect}/>
+            <Security key={security.get('code')} security={security} onSelect={onSelect}/>
           ).toJS()}
         </tbody>
       </table>
