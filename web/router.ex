@@ -19,6 +19,9 @@ defmodule MoexHelper.Router do
     scope "/securities", Securities do
       resources "/search", SearchController, only: [:show], singleton: true
     end
+    scope "/ownerships", Ownerships do
+      resources "/positions", PositionController, only: [:update], singleton: true
+    end
     resources "/ownerships", OwnershipController, only: [:index, :create, :update, :delete]
   end
 end

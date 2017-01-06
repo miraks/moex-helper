@@ -1,7 +1,6 @@
 import { Map } from 'immutable'
 import uuid from 'uuid/v4'
 import { handleActions } from 'redux-actions'
-import listToCidMap from '../helpers/list-to-cid-map'
 
 const initialState = Map({
   items: Map(),
@@ -15,8 +14,7 @@ export default handleActions({
   },
 
   ACCOUNTS_FETCH_SUCCESS(state, { payload: accounts }) {
-    const accountsMap = listToCidMap(accounts)
-    return state.merge({ items: accountsMap, isFetching: false, isFailed: false })
+    return state.merge({ items: accounts, isFetching: false, isFailed: false })
   },
 
   ACCOUNTS_FETCH_FAIL(state) {

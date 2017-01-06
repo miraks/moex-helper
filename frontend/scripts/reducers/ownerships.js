@@ -1,9 +1,8 @@
-import { Map } from 'immutable'
+import { Map, OrderedMap } from 'immutable'
 import { handleActions } from 'redux-actions'
-import listToCidMap from '../helpers/list-to-cid-map'
 
 const initialState = Map({
-  items: Map(),
+  items: OrderedMap(),
   isFetching: false,
   isFailed: false
 })
@@ -14,8 +13,7 @@ export default handleActions({
   },
 
   OWNERSHIPS_FETCH_SUCCESS(state, { payload: ownerships }) {
-    const ownershipsMap = listToCidMap(ownerships)
-    return state.merge({ items: ownershipsMap, isFetching: false, isFailed: false })
+    return state.merge({ items: ownerships, isFetching: false, isFailed: false })
   },
 
   OWNERSHIPS_FETCH_FAIL(state) {

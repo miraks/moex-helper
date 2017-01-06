@@ -10,7 +10,11 @@ import Input from '../shared/input'
 class Ownership extends PureComponent {
   static propTypes = {
     ownership: ImmutablePropTypes.map.isRequired,
+    isFirst: PropTypes.bool.isRequired,
+    isLast: PropTypes.bool.isRequired,
     columns: ImmutablePropTypes.listOf(ImmutablePropTypes.map).isRequired,
+    moveUp: PropTypes.func.isRequired,
+    moveDown: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired
@@ -58,6 +62,20 @@ class Ownership extends PureComponent {
     return this.format(column)
   }
 
+  moveUp() {
+    const { isFirst, moveUp } = this.props
+
+    if (isFirst) return
+    return <Button size="small" color="primary" variant="fab" onClick={moveUp}>🡹</Button>
+  }
+
+  moveDown() {
+    const { isLast, moveDown } = this.props
+
+    if (isLast) return
+    return <Button size="small" color="primary" variant="fab" onClick={moveDown}>🡻</Button>
+  }
+
   edit() {
     const { edit } = this.state
 
@@ -84,6 +102,10 @@ class Ownership extends PureComponent {
     const { columns } = this.props
 
     return <tr>
+      <td>
+        {::this.moveUp()}
+        {::this.moveDown()}
+      </td>
       {columns.map((column) =>
         <td key={column.get('path')}>{::this.column(column)}</td>
       ).toJS()}
@@ -102,6 +124,8 @@ const mapStateToProps = (state, { ownership }) => {
 
 const mapDispatchToProps = (dispatch, { ownership }) => {
   return {
+    moveUp() { return dispatch(ownershipActions.moveUp(ownership.get('cid'))) },
+    moveDown() { return dispatch(ownershipActions.moveDown(ownership.get('cid'))) },
     update(params) { return dispatch(ownershipActions.update(ownership.get('cid'), params)) },
     remove() { return dispatch(ownershipActions.remove(ownership.get('cid'))) }
   }

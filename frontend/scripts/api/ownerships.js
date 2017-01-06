@@ -14,3 +14,6 @@ export const update = (id, params) =>
 
 export const remove = (id) =>
   axios.delete(`/api/private/ownerships/${id}`)
+
+export const updatePositions = (positions) =>
+  axios.put('/api/private/ownerships/positions', { positions })

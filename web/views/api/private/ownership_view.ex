@@ -21,7 +21,8 @@ defmodule MoexHelper.Api.Private.OwnershipView do
       id: ownership.id,
       amount: ownership.amount,
       price: ownership.price,
-      comment: ownership.comment
+      comment: ownership.comment,
+      position: ownership.position
     }
   end
 

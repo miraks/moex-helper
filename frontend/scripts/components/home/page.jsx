@@ -42,6 +42,7 @@ class HomePage extends PureComponent {
     return <table>
       <thead>
         <tr>
+          <th/>
           {columns.map((column) =>
             <th key={column.get('path')}>{column.get('name')}</th>
           ).toJS()}
@@ -49,8 +50,10 @@ class HomePage extends PureComponent {
         </tr>
       </thead>
       <tbody>
-        {ownerships.valueSeq().map((ownership) =>
-          <Ownership key={ownership.get('id')} ownership={ownership} columns={columns}/>
+        {ownerships.valueSeq().sortBy((ownership) => ownership.get('index')).map((ownership, index) =>
+          <Ownership key={ownership.get('id')} ownership={ownership} isFirst={index === 0}
+            isLast={index === ownerships.size - 1} columns={columns}
+          />
         ).toJS()}
       </tbody>
     </table>

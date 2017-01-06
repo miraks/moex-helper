@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions'
 import * as accountsApi from '../api/accounts'
+import listToCidMap from '../helpers/list-to-cid-map'
 
 const fetchStart = createAction('ACCOUNTS_FETCH_START')
 const fetchSuccess = createAction('ACCOUNTS_FETCH_SUCCESS')
@@ -16,6 +17,7 @@ export const fetch = () => (dispatch) => {
   dispatch(fetchStart())
   return accountsApi.fetch()
     .then((accounts) => {
+      accounts = listToCidMap(accounts)
       dispatch(fetchSuccess(accounts))
       return accounts
     })

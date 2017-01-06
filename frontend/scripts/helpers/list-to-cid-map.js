@@ -3,6 +3,6 @@ import uuid from 'uuid/v4'
 
 export default (items) =>
   items.reduce((map, item) => {
-    const cid = uuid()
-    return map.set(cid, item.set('cid', cid))
+    if (!item.get('cid')) item = item.set('cid', uuid())
+    return map.set(item.get('cid'), item)
   }, Map())

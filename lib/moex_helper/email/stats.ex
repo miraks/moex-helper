@@ -25,7 +25,7 @@ defmodule MoexHelper.Email.Stats do
   EEx.function_from_file :defp, :body, "lib/moex_helper/templates/email/stats.html.eex", [:fields, :ownerships]
 
   def build(user) do
-    ownerships = user |> assoc(:ownerships) |> preload([:account, :security]) |> Repo.all
+    ownerships = user |> assoc(:ownerships) |> preload([:account, :security]) |> order_by(asc: :position) |> Repo.all
 
     new \
       from: Application.get_env(:moex_helper, MoexHelper.Mailer)[:from],
@@ -47,13 +47,13 @@ defmodule MoexHelper.Email.Stats do
     end
   end
 
-  defp format(%{path: [:security, :data, "PREVPRICE"]} = field, ownership) do
-    diff = (prev_price(ownership) - ownership.price) |> Float.round(2)
+  defp format(ownership, %{path: [:security, :data, "PREVPRICE"]} = field) do
+    diff = (prev_price(ownership) - Decimal.to_float(ownership.price)) |> Float.round(2)
     diff_with_sign = if diff > 0, do: "+#{diff}", else: diff
     "#{get_at(ownership, field.path)} (#{diff_with_sign})"
   end
 
-  defp format(%{key: :next_coupon} = field, ownership) do
+  defp format(ownership, %{path: [:security, :data, "NEXTCOUPON"]} = field) do
     "#{get_at(ownership, field.path)} (#{days_till_coupon(ownership)})"
   end
 
