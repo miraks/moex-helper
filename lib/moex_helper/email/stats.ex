@@ -8,6 +8,7 @@ defmodule MoexHelper.Email.Stats do
   import Ecto.Query
   import MoexHelper.I18n, only: [t: 1]
 
+  alias Decimal, as: D
   alias MoexHelper.Repo
 
   @fields [
@@ -25,13 +26,35 @@ defmodule MoexHelper.Email.Stats do
   EEx.function_from_file :defp, :body, "lib/moex_helper/templates/email/stats.html.eex", [:fields, :ownerships]
 
   def build(user) do
-    ownerships = user |> assoc(:ownerships) |> preload([:account, :security]) |> order_by(asc: :position) |> Repo.all
+    ownerships = user |> load_ownerships |> group_ownerships
 
     new \
       from: Application.get_env(:moex_helper, MoexHelper.Mailer)[:from],
       to: user.email,
       subject: subject,
       html_body: body(@fields, ownerships)
+  end
+
+  defp load_ownerships(user) do
+    user |> assoc(:ownerships) |> preload([:account, :security]) |> order_by(asc: :position) |> Repo.all
+  end
+
+  defp group_ownerships(ownerships) do
+    ownerships
+    |> Enum.chunk_by(fn %{account: account, security: security} -> {account, security} end)
+    |> Enum.map(fn ownerships ->
+      ownerships
+      |> Enum.reduce(fn ownership, result ->
+        amount = result.amount + ownership.amount
+        price = D.div(
+          D.add(
+            D.mult(D.new(result.amount), result.price),
+            D.mult(D.new(ownership.amount), ownership.price)),
+          D.new(amount))
+        %{result | amount: amount, price: price}
+      end)
+      |> Map.update!(:price, &D.round(&1, 2))
+    end)
   end
 
   defp subject do
@@ -48,7 +71,7 @@ defmodule MoexHelper.Email.Stats do
   end
 
   defp format(ownership, %{path: [:security, :data, "PREVPRICE"]} = field) do
-    diff = (prev_price(ownership) - Decimal.to_float(ownership.price)) |> Float.round(2)
+    diff = (prev_price(ownership) - D.to_float(ownership.price)) |> Float.round(2)
     diff_with_sign = if diff > 0, do: "+#{diff}", else: diff
     "#{get_at(ownership, field.path)} (#{diff_with_sign})"
   end
