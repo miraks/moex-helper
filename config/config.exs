@@ -30,6 +30,10 @@ config :quantum, cron: [
   email_stats: [
     schedule: "10 7 * * *",
     task: {MoexHelper.Tasks.EmailStats, :call}
+  ],
+  create_coupons: [
+    schedule: "10 6 * * *",
+    task: {MoexHelper.Tasks.CreareCoupons, :call}
   ]
 ]
 

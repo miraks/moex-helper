@@ -7,7 +7,7 @@ defmodule MoexHelper.SecurityAction.Search do
     Client.search(query, @columns)
     |> Enum.map(fn security ->
       {code, new_security} = Map.pop(security, "secid")
-      Map.put(security, "code", code)
+      Map.put(new_security, "code", code)
     end)
   end
 end

@@ -8,6 +8,7 @@ defmodule MoexHelper.Ownership do
     field :position, :integer, default: 0
     belongs_to :account, MoexHelper.Account
     belongs_to :security, MoexHelper.Security
+    has_many :coupons, MoexHelper.Coupon
 
     timestamps
   end
