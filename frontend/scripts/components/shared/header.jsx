@@ -9,6 +9,7 @@ export default () =>
     </Link>
     <div className="layout_header-links">
       <Link className="layout_header-link" to="/accounts">Accounts</Link>
+      <Link className="layout_header-link" to="/coupons">Coupons</Link>
       <Link className="layout_header-link" to="/ownerships/new">Add security</Link>
     </div>
   </Appbar>

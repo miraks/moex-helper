@@ -9,6 +9,7 @@ defmodule MoexHelper.User do
     field :password, :string, virtual: true
     has_many :accounts, MoexHelper.Account
     has_many :ownerships, through: [:accounts, :ownerships]
+    has_many :coupons, through: [:ownerships, :coupons]
 
     timestamps
   end

@@ -23,5 +23,6 @@ defmodule MoexHelper.Router do
       resources "/positions", PositionController, only: [:update], singleton: true
     end
     resources "/ownerships", OwnershipController, only: [:index, :create, :update, :delete]
+    resources "/coupons", CouponController, only: [:index, :update]
   end
 end

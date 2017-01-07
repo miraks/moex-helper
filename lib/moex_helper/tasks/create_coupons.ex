@@ -26,7 +26,15 @@ defmodule MoexHelper.Tasks.CreateCoupons do
   defp create_coupon(ownership) do
     ownership
     |> build_assoc(:coupons)
-    |> Coupon.changeset(%{date: ownership.security.data["NEXTCOUPON"]})
+    |> Coupon.changeset(coupon_params(ownership))
     |> Repo.insert
+  end
+
+  defp coupon_params(ownership) do
+    %{
+      date: ownership.security.data["NEXTCOUPON"],
+      name: ownership.security.data["SECNAME"],
+      amount: ownership.amount * ownership.security.data["COUPONVALUE"]
+    }
   end
 end

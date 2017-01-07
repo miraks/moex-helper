@@ -15,7 +15,6 @@ defmodule MoexHelper.Api.Private.OwnershipView do
     %{ownership: render_one(ownership, __MODULE__, "ownership_with_assocs.json")}
   end
 
-
   def render("ownership.json", %{ownership: ownership}) do
     %{
       id: ownership.id,
