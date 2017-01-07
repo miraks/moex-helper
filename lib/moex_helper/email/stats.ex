@@ -4,12 +4,10 @@ defmodule MoexHelper.Email.Stats do
   use Timex
 
   import Swoosh.Email
-  import Ecto
-  import Ecto.Query
   import MoexHelper.I18n, only: [t: 1]
 
   alias Decimal, as: D
-  alias MoexHelper.Repo
+  alias MoexHelper.{Ownership, Coupon}
 
   @fields [
     %{name: "Account", path: [:account, :name]},
@@ -23,38 +21,15 @@ defmodule MoexHelper.Email.Stats do
     %{name: t("en.security.data.matdate"), path: [:security, :data, "MATDATE"]}
   ]
 
-  EEx.function_from_file :defp, :body, "lib/moex_helper/templates/email/stats.html.eex", [:fields, :ownerships]
+  EEx.function_from_file :defp, :body, "lib/moex_helper/templates/email/stats.html.eex",
+    [:fields, :ownerships, :coupons]
 
-  def build(user) do
-    ownerships = user |> load_ownerships |> group_ownerships
-
+  def build(user, ownerships, coupons) do
     new \
       from: Application.get_env(:moex_helper, MoexHelper.Mailer)[:from],
       to: user.email,
       subject: subject,
-      html_body: body(@fields, ownerships)
-  end
-
-  defp load_ownerships(user) do
-    user |> assoc(:ownerships) |> preload([:account, :security]) |> order_by(asc: :position) |> Repo.all
-  end
-
-  defp group_ownerships(ownerships) do
-    ownerships
-    |> Enum.chunk_by(fn %{account: account, security: security} -> {account, security} end)
-    |> Enum.map(fn ownerships ->
-      ownerships
-      |> Enum.reduce(fn ownership, result ->
-        amount = result.amount + ownership.amount
-        price = D.div(
-          D.add(
-            D.mult(D.new(result.amount), result.price),
-            D.mult(D.new(ownership.amount), ownership.price)),
-          D.new(amount))
-        %{result | amount: amount, price: price}
-      end)
-      |> Map.update!(:price, &D.round(&1, 2))
-    end)
+      html_body: body(@fields, ownerships, coupons)
   end
 
   defp subject do
@@ -70,18 +45,23 @@ defmodule MoexHelper.Email.Stats do
     end
   end
 
-  defp format(ownership, %{path: [:security, :data, "PREVPRICE"]} = field) do
+  defp format(%Ownership{} = ownership, %{path: [:security, :data, "PREVPRICE"]} = field) do
     diff = (prev_price(ownership) - D.to_float(ownership.price)) |> Float.round(2)
     diff_with_sign = if diff > 0, do: "+#{diff}", else: diff
     "#{get_at(ownership, field.path)} (#{diff_with_sign})"
   end
 
-  defp format(ownership, %{path: [:security, :data, "NEXTCOUPON"]} = field) do
+  defp format(%Ownership{} = ownership, %{path: [:security, :data, "NEXTCOUPON"]} = field) do
     "#{get_at(ownership, field.path)} (#{days_till_coupon(ownership)})"
   end
 
-  defp format(ownership, field) do
+  defp format(%Ownership{} = ownership, field) do
     get_at(ownership, field.path)
+  end
+
+  defp format(%Coupon{} = coupon, :days_past) do
+    left = Timex.diff(Timex.today, coupon.date, :days)
+    "#{coupon.date} (#{left})"
   end
 
   defp get_at(ownership, path) do
@@ -89,14 +69,10 @@ defmodule MoexHelper.Email.Stats do
   end
 
   defp days_till_coupon(ownership) do
-    ownership |> next_coupon |> Timex.diff(Timex.today, :days)
+    ownership.security.data["NEXTCOUPON"] |> Date.from_iso8601! |> Timex.diff(Timex.today, :days)
   end
 
   defp prev_price(ownership) do
     ownership.security.data["PREVPRICE"]
-  end
-
-  defp next_coupon(ownership) do
-    ownership.security.data["NEXTCOUPON"] |> Date.from_iso8601!
   end
 end

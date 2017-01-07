@@ -1,14 +1,42 @@
 <table>
-  <tr>
-    <%= for field <- fields do %>
-      <th><%= field.name %></th>
-    <% end %>
-  </tr>
-  <%= for ownership <- ownerships do %>
-    <tr style="color: <%= row_color(ownership) %>">
+  <thead>
+    <tr>
       <%= for field <- fields do %>
-        <td><%= format(ownership, field) %></td>
+        <th><%= field.name %></th>
       <% end %>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <%= for ownership <- ownerships do %>
+      <tr style="color: <%= row_color(ownership) %>">
+        <%= for field <- fields do %>
+        <td><%= format(ownership, field) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
+
+
+<%= unless Enum.empty?(coupons) do %>
+  <hr>
+
+  <table>
+    <thead>
+      <tr>
+        <td>Name</td>
+        <td>Amount</td>
+        <td>Days past</td>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for coupon <- coupons do %>
+        <tr>
+          <td><%= coupon.name %></td>
+          <td><%= coupon.amount %></td>
+          <td><%= format(coupon, :days_past) %></td>
+        </tr>
+      <%= end %>
+    </tbody>
+  </table>
+<% end %>
