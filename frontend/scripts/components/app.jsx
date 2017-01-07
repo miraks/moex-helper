@@ -18,7 +18,7 @@ class App extends PureComponent {
     children: PropTypes.node.isRequired
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { fetchTranslations, fetchCurrentUser } = this.props
     fetchTranslations().then((translations) => { i18n.set(translations) })
     fetchCurrentUser()

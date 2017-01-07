@@ -30,7 +30,7 @@ class HomePage extends PureComponent {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { fetchOwnerships } = this.props
     fetchOwnerships()
   }

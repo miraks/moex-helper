@@ -12,7 +12,7 @@ class AccountsPage extends PureComponent {
     accounts: ImmutablePropTypes.map.isRequired
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { fetchAccounts } = this.props
     fetchAccounts()
   }

@@ -15,7 +15,7 @@ class NewSecurityForm extends PureComponent {
     handleSubmit: PropTypes.func.isRequired
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { fetchAccounts } = this.props
     fetchAccounts()
   }
