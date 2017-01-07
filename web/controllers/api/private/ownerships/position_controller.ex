@@ -3,6 +3,8 @@ defmodule MoexHelper.Api.Private.Ownerships.PositionController do
 
   alias MoexHelper.OwnershipAction.UpdatePositions
 
+  plug Guardian.Plug.EnsureResource, handler: MoexHelper.AuthErrorHandler
+
   def update(conn, %{"positions" => positions}) do
     current_user = current_resource(conn)
 

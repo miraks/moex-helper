@@ -4,6 +4,8 @@ defmodule MoexHelper.Api.Private.OwnershipController do
   alias MoexHelper.{Ownership, ErrorView}
   alias MoexHelper.OwnershipAction.Create
 
+  plug Guardian.Plug.EnsureResource, handler: MoexHelper.AuthErrorHandler
+
   def index(conn, _params) do
     ownerships = conn |> current_resource |> assoc(:ownerships) |> preload([:account, :security]) |> Repo.all
     render(conn, "index.json", ownerships: ownerships)
