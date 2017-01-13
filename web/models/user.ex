@@ -11,7 +11,7 @@ defmodule MoexHelper.User do
     has_many :ownerships, through: [:accounts, :ownerships]
     has_many :coupons, through: [:ownerships, :coupons]
 
-    timestamps
+    timestamps()
   end
 
   def changeset(struct, params \\ %{}) do

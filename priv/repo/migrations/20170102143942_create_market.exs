@@ -7,7 +7,7 @@ defmodule MoexHelper.Repo.Migrations.CreateMarket do
       add :name, :text, null: false
       add :engine_id, references(:engines, type: :binary_id, on_delete: :delete_all)
 
-      timestamps
+      timestamps()
     end
 
     create unique_index(:markets, [:engine_id, :name])

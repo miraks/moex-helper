@@ -8,7 +8,7 @@ defmodule MoexHelper.Coupon do
     field :collected, :boolean, default: false
     belongs_to :ownership, MoexHelper.Ownership
 
-    timestamps
+    timestamps()
   end
 
   def changeset(struct, params \\ %{}) do

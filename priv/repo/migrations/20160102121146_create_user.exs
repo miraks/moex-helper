@@ -7,7 +7,7 @@ defmodule MoexHelper.Repo.Migrations.CreateUser do
       add :email, :text, null: false
       add :encrypted_password, :text, null: false
 
-      timestamps
+      timestamps()
     end
 
     create unique_index(:users, :email)

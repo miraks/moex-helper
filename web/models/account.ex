@@ -6,7 +6,7 @@ defmodule MoexHelper.Account do
     belongs_to :user, MoexHelper.User
     has_many :ownerships, MoexHelper.Ownership
 
-    timestamps
+    timestamps()
   end
 
   def changeset(struct, params \\ %{}) do

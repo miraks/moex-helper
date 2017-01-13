@@ -8,7 +8,7 @@ defmodule MoexHelper.Tasks.CreateCoupons do
   @threshold_unit "day"
 
   def call do
-    find_ownerships
+    find_ownerships()
     |> Enum.each(&create_coupon/1)
   end
 

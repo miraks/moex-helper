@@ -44,7 +44,7 @@ defmodule MoexHelper.Tasks.EmailStats do
       inner_join: o in assoc(c, :ownership),
       inner_join: a in assoc(o, :account),
       inner_join: u in assoc(a, :user),
-      where: u.id == ^user.id and not c.collected and c.date <= ^Ecto.Date.utc,
+      where: u.id == ^user.id and not c.collected and c.date <= ^Date.utc_today,
       order_by: c.date
 
     Repo.all(query)

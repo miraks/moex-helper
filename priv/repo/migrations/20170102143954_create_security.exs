@@ -7,7 +7,7 @@ defmodule MoexHelper.Repo.Migrations.CreateSecurity do
       add :isin, :text, null: false
       add :board_id, references(:boards, type: :binary_id, on_delete: :delete_all)
 
-      timestamps
+      timestamps()
     end
 
     create unique_index(:securities, [:board_id, :isin])

@@ -7,7 +7,7 @@ defmodule MoexHelper.Repo.Migrations.CreateBoard do
       add :name, :text, null: false
       add :market_id, references(:markets, type: :binary_id, on_delete: :delete_all)
 
-      timestamps
+      timestamps()
     end
 
     create unique_index(:boards, [:market_id, :name])

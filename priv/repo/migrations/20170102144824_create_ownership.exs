@@ -10,7 +10,7 @@ defmodule MoexHelper.Repo.Migrations.CreateOwnership do
       add :account_id, references(:accounts, type: :binary_id, on_delete: :delete_all)
       add :security_id, references(:securities, type: :binary_id, on_delete: :delete_all)
 
-      timestamps
+      timestamps()
     end
 
     create index(:ownerships, :account_id)

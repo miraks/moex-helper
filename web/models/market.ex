@@ -6,7 +6,7 @@ defmodule MoexHelper.Market do
     belongs_to :engine, MoexHelper.Engine
     has_many :boards, MoexHelper.Board
 
-    timestamps
+    timestamps()
   end
 
   def changeset(struct, params \\ %{}) do

@@ -28,7 +28,7 @@ defmodule MoexHelper.Email.Stats do
     new \
       from: Application.get_env(:moex_helper, MoexHelper.Mailer)[:from],
       to: user.email,
-      subject: subject,
+      subject: subject(),
       html_body: body(@fields, ownerships, coupons)
   end
 

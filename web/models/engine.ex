@@ -5,7 +5,7 @@ defmodule MoexHelper.Engine do
     field :name, :string
     has_many :markets, MoexHelper.Market
 
-    timestamps
+    timestamps()
   end
 
   def changeset(struct, params \\ %{}) do

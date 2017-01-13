@@ -7,7 +7,7 @@ defmodule MoexHelper.Repo.Migrations.CreateAccount do
       add :name, :text, null: false
       add :user_id, references(:users, type: :binary_id, on_delete: :delete_all)
 
-      timestamps
+      timestamps()
     end
 
     create index(:accounts, :user_id)

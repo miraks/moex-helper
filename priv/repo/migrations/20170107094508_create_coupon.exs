@@ -8,7 +8,7 @@ defmodule MoexHelper.Repo.Migrations.CreateCoupon do
       add :collected, :boolean, null: false, default: false
       add :ownership_id, references(:ownerships, type: :binary_id, on_delete: :delete_all)
 
-      timestamps
+      timestamps()
     end
 
     create unique_index(:coupons, [:ownership_id, :date])

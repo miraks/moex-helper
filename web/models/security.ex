@@ -7,7 +7,7 @@ defmodule MoexHelper.Security do
     belongs_to :board, MoexHelper.Board
     has_many :ownerships, MoexHelper.Ownership
 
-    timestamps
+    timestamps()
   end
 
   def changeset(struct, params \\ %{}) do

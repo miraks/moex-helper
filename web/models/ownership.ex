@@ -10,7 +10,7 @@ defmodule MoexHelper.Ownership do
     belongs_to :security, MoexHelper.Security
     has_many :coupons, MoexHelper.Coupon
 
-    timestamps
+    timestamps()
   end
 
   def changeset(struct, params \\ %{}) do
