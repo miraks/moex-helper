@@ -2,12 +2,18 @@ defmodule MoexHelper.Api.Private.OwnershipController do
   use MoexHelper.Web, :controller
 
   alias MoexHelper.{Ownership, ErrorView}
-  alias MoexHelper.OwnershipAction.Create
+  alias MoexHelper.OwnershipAction.{Create, Delete}
 
   plug Guardian.Plug.EnsureResource, handler: MoexHelper.AuthErrorHandler
 
   def index(conn, _params) do
-    ownerships = conn |> current_resource |> assoc(:ownerships) |> preload([:account, :security]) |> Repo.all
+    ownerships = conn
+    |> current_resource
+    |> assoc(:ownerships)
+    |> preload([:account, :security])
+    |> Ownership.not_deleted
+    |> Repo.all
+
     render(conn, "index.json", ownerships: ownerships)
   end
 
@@ -41,7 +47,7 @@ defmodule MoexHelper.Api.Private.OwnershipController do
   end
 
   def delete(conn, %{"id" => id}) do
-    conn |> ownerships |> Repo.get!(id) |> Repo.delete!
+    conn |> ownerships |> Repo.get!(id) |> Delete.call
     send_resp(conn, 200, "")
   end
 
