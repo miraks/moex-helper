@@ -43,6 +43,11 @@ namespace :mix do
     cc %{MIX_ENV=prod mix deps.get}
   end
 
+  desc 'Compile mix project'
+  task compile: :environment do
+    cc %{MIX_ENV=prod mix compile}
+  end
+
   desc 'Assembly application release using distillery'
   task release: :environment do
     cc %{MIX_ENV=prod mix release}
@@ -83,6 +88,7 @@ task :deploy do
     invoke :'yarn:install'
     invoke :'yarn:build'
     invoke :'mix:deps'
+    invoke :'mix:compile'
     invoke :'mix:ecto_migrate'
     invoke :'mix:release'
     invoke :'deploy:cleanup'
