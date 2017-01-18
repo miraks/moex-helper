@@ -17,7 +17,7 @@ config :quantum, cron: [
   ],
   create_coupons: [
     schedule: "10 6 * * *",
-    task: {MoexHelper.Tasks.CreareCoupons, :call}
+    task: {MoexHelper.Tasks.CreateCoupons, :call}
   ]
 ]
 
